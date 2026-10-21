@@ -1,0 +1,6 @@
+for a user file, eg '1.txt'
+mass
+height
+age
+gender
+activity_level
