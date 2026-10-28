@@ -1,5 +1,12 @@
 #--- Group Project: Fitness Tracker ---#
 
+#--- Declaration ---#
+
+"""
+This code is my own individual and original work with very limited AI assistant. For any
+part of codes that are referenced to, supported by AI, acknowledgement will be specified
+"""
+
 #--- Modules ---#
 def welcome():
     print("Welcome to Fitness Tracker")
