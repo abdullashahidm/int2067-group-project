@@ -71,7 +71,7 @@ def create_new_user():
     
     print("Creating a new user.")
     
-    name=input("Enter new user's name >").strip().lower()
+    name=input("Enter new user's name >").strip().lower().replace(",","")
     
     mass,height,age,gender,activity_level,weight_goal=get_user_stats()
     
@@ -252,7 +252,7 @@ def print_target_cal(tdee):
     
     print(f"Target Calories (cal/day): {round(tdee,1)} to maintain,\n{round(tdee-500,1)} for mass loss,\n{round(tdee+300,1)} for mass gain")
 
-def print_macronutrient_breakdown(mass,tdee,weight_goal): #TDEE we get here is already based on weight loss goal
+def print_macronutrient_breakdown(mass,tdee,weight_goal): 
     
     if weight_goal=="maintain":
         target_cal=tdee
@@ -289,16 +289,20 @@ def main_loop():
 
             print_all_users()
 
-            selected_user=validated_choice("Enter the number of the user whose profile to access. Enter 0 to add a new user. >",[_ for _ in range(0,len(all_users)+1)])
+            selected_user=validated_choice("Enter the number of the user whose profile to access. Enter 0 to add a new user. Enter -1 to exit. >",[_ for _ in range(-1,len(all_users)+1)])
 
             if selected_user==0:
                 create_new_user()
+                continue
+
+            if selected_user==-1:
+                sys.exit("Exiting program, goodbye!")
 
             else:
                 name,mass,height,age,gender,activity_level,weight_goal=load_user_profile(selected_user)
                 print("Currently loaded profile:",name)
 
-            loaded_profile_action=validated_choice("Enter 1 to display current profile data, 2 to alter current profile data, 3 to remove current profile, 4 to exit. >",[1,2,3,4])
+            loaded_profile_action=validated_choice("Enter 1 to display current profile data, 2 to alter current profile data, 3 to remove current profile, -1 to exit. >",[-1,1,2,3])
         
             match loaded_profile_action:
             
@@ -311,7 +315,7 @@ def main_loop():
                 case 3:
                     delete_profile(selected_user)
             
-                case 4:
+                case -1:
                     sys.exit("Exiting program, goodbye!")
 
         else:
